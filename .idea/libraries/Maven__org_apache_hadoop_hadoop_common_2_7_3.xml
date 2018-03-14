@@ -8,8 +8,6 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/hadoop/hadoop-common/2.7.3/hadoop-common-2.7.3-sources.jar!/" />
-      <root url="file:///opt/hadoop-2.7.3/share/hadoop/common/jdiff" />
-      <root url="file:///opt/hadoop-2.7.3/share/hadoop/hdfs/jdiff" />
     </SOURCES>
   </library>
 </component>
