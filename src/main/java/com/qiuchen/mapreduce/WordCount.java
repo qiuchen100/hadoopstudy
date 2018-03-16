@@ -27,11 +27,11 @@ public class WordCount {
     static class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            StringTokenizer tonkenizer = new StringTokenizer(value.toString());
+            StringTokenizer strs = new StringTokenizer(value.toString());
             Text word = new Text();
             IntWritable count = new IntWritable(1);
-            while (tonkenizer.hasMoreTokens()) {
-                word.set(tonkenizer.nextToken());
+            while (strs.hasMoreTokens()) {
+                word.set(strs.nextToken());
                 context.write(word, count);
             }
         }
@@ -45,8 +45,8 @@ public class WordCount {
         protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             IntWritable count = new IntWritable();
             int cnt = 0;
-            while (values.iterator().hasNext()) {
-                cnt += 1;
+            for (IntWritable value : values) {
+                cnt += value.get();
             }
             count.set(cnt);
             context.write(key, count);
@@ -70,18 +70,18 @@ public class WordCount {
         conf.set("fs.defaultFS", "hdfs://ns");
         FileSystem fs = FileSystem.get(conf);
         FileStatus status = fs.getFileStatus(inputPath);
-        if (!status.isDirectory()) {
+        if (!(fs.exists(inputPath) && status.isDirectory())) {
             System.err.println("输入文件目录不存在!");
             System.exit(2);
         }
-        status = fs.getFileStatus(outputPath);
-        if (status.isDirectory()) {
+        if (fs.exists(outputPath)) {
             fs.delete(outputPath, true);
         }
 
         Job job = Job.getInstance(conf, "Word Count");
         job.setMapperClass(WordCountMapper.class);
         job.setReducerClass(WordCountReducer.class);
+        job.setCombinerClass(WordCountReducer.class);
         job.setJarByClass(WordCount.class);
 
         job.setMapOutputKeyClass(Text.class);
