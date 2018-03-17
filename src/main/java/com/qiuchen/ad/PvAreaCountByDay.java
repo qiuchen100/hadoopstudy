@@ -8,9 +8,6 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-
-import java.io.DataInput;
-import java.io.DataOutput;
 import java.io.IOException;
 
 /**
@@ -22,49 +19,6 @@ import java.io.IOException;
  统计维度：地域area_id
  */
 public class PvAreaCountByDay {
-
-    /**
-     * CCreated by qiuchen on 2018/03/16.
-     * 实现Writable接口，序列化
-     */
-    static class AreaCntWritable implements Writable {
-        public AreaCntWritable() {
-        }
-
-        public AreaCntWritable(int pv, int click) {
-            this.pv = pv;
-            this.click = click;
-        }
-
-        int pv;
-        int click;
-
-        public int getPv() {
-            return pv;
-        }
-
-        public void setPv(int pv) {
-            this.pv = pv;
-        }
-
-        public int getClick() {
-            return click;
-        }
-
-        public void setClick(int click) {
-            this.click = click;
-        }
-
-        public void write(DataOutput out) throws IOException {
-            out.write(pv);
-            out.write(click);
-        }
-
-        public void readFields(DataInput in) throws IOException {
-            pv = in.readInt();
-            click = in.readInt();
-        }
-    }
 
     static class PvAreaCountMapper extends Mapper<LongWritable, Text, Text, AreaCntWritable> {
         @Override
