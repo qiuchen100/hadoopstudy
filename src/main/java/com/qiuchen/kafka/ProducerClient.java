@@ -40,7 +40,7 @@ public class ProducerClient {
             //组装一条消息内容
             String msg = runtime + "---" + ip;
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
