@@ -61,12 +61,12 @@ public class ConsumerClient {
                 System.out.println("******start deal message******");
                 try {
                     //当前线程睡眠1秒钟，模拟消息处理过程
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                System.out.println("manual commint offset start...");
+                System.out.println("manual commit offset start...");
                 //处理完之后进行提交
                 consumer.commitSync();
                 //清除list, 继续接收
@@ -80,7 +80,7 @@ public class ConsumerClient {
     /**
      * 自动提交偏移量
      */
-    public static void autoCommt() {
+    public static void autocommit() {
         Properties props = new Properties();
         //kafka broker列表
         props.put("bootstrap.servers", "hadoop03:9092,hadoop04:9092,hadoop05:9092");
@@ -101,7 +101,7 @@ public class ConsumerClient {
             long starttime = System.currentTimeMillis();
             //poll方法需要传入一个超时时间，当没有可以拉取的消息时先等待，
             //如果已到超时时间还没有可以拉取的消息则进行下一轮拉取，单位毫秒
-            ConsumerRecords<String, String> records = consumer.poll(1000);
+            ConsumerRecords<String, String> records = consumer.poll(10000);
             long endtime = System.currentTimeMillis();
             long tm = (endtime - starttime) / 1000;
             System.out.println("--------------end pull message and times=" + tm + "s -------------");
@@ -113,6 +113,6 @@ public class ConsumerClient {
     }
     public static void main(String[] args) {
 //        manualCommit();
-        autoCommt();
+        autocommit();
     }
 }
