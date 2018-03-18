@@ -11,9 +11,16 @@ import java.util.Random;
 /**
  * Kafka 生产者 写数据测试
  * @author qiuchen
+ * @version 1.0
  */
 public class ProducerClient {
+
+    /**
+     * 主函数
+     * @param args
+     */
     public static void main(String[] args) {
+
         Properties props = new Properties();
         //kafka broker列表
         props.put("bootstrap.servers", "hadoop03:9092,hadoop04:9092,hadoop05:9092");
@@ -33,7 +40,7 @@ public class ProducerClient {
             //组装一条消息内容
             String msg = runtime + "---" + ip;
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
