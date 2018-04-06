@@ -45,7 +45,7 @@ public class ProducerClient {
                 e.printStackTrace();
             }
             System.out.println("send to kafka->key:" + ip + " value:" + msg);
-            ProducerRecord<String, String> record = new ProducerRecord<String, String>("mytopictest02", ip, msg);
+            ProducerRecord<String, String> record = new ProducerRecord<String, String>("flumetopictest1", ip, msg);
             //向kafka mytopictest02主题发送消息
             producer.send(record);
             System.out.println(record.partition());

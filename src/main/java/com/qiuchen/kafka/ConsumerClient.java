@@ -36,7 +36,7 @@ public class ConsumerClient {
 
         Consumer<String, String> consumer = new KafkaConsumer<String, String>(props);
         //consumer订阅topictest1主题，同时消费多个主题用逗号隔开
-        consumer.subscribe(Arrays.asList("topicnewtest1"));
+        consumer.subscribe(Arrays.asList("flumetopictest1"));
         //每次最少处理10条消息后才提交
         final int minBatchSize = 10;
         //用于保存消息的list

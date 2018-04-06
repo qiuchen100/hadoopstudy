@@ -10,9 +10,9 @@ import java.io.IOException;
 
 public class LocationFile {
     public static void main(String[] args) {
-        String uri = "hdfs://master:9000/input/words";
+        String uri = "hdfs://hadoop01:9000/wordcount/input/README.txt";
         Configuration conf = new Configuration();
-        conf.set("fs.defaultFS", "hdfs://master:9000");
+        conf.set("fs.defaultFS", "hdfs://hadoop01:9000");
         try {
             FileSystem fs = FileSystem.get(conf);
             FileStatus fileStatus = fs.getFileStatus(new Path(uri));
